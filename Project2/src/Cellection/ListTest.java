@@ -1,6 +1,7 @@
 package Cellection;
 
 import java.util.List;
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -8,9 +9,12 @@ import java.util.Iterator;
 public class ListTest {
 
 	public List coursesToSelect;
+	private Scanner scanner;
 	
 	public ListTest() {
 		this.coursesToSelect = new ArrayList();
+		scanner = new Scanner(System.in);
+		
 	}
 	
 	public void TestAdd() {
@@ -104,14 +108,28 @@ public class ListTest {
 		testForEach();
 	}
 	
+	/**
+	 * 在list中用contins方法判断课程是否存在
+	 * @param args
+	 */
+	public void testListContains(){
+		System.out.println("请输入课程名称：");
+		String name = scanner.next();
+		Course course = new Course();
+		course.name= name;
+		System.out.println("新创建课程："+course.name);
+		System.out.println("备选课程中是否包含课程："+course.name+","+coursesToSelect.contains(course));
+	}
+	
 	public static void  main(String[] args) {
 		ListTest p = new ListTest();
 		p.TestAdd();
-		p.testGet();
-		p.testIerator();
-		p.testForEach();
-		p.testModify();
-		p.testForEach();
-		p.testRemove();
+		p.testListContains();
+//		p.testGet();
+//		p.testIerator();
+//		p.testForEach();
+//		p.testModify();
+//		p.testForEach();
+//		p.testRemove();
 	}
 }
