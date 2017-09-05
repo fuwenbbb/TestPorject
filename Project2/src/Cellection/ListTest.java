@@ -109,7 +109,7 @@ public class ListTest {
 	}
 	
 	/**
-	 * 在list中用contins方法判断课程是否存在
+	 * 在list中用contains方法判断课程是否存在
 	 * @param args
 	 */
 	public void testListContains(){

@@ -14,6 +14,8 @@ import java.util.Scanner;
 public class SetTest {
 
 	public List<Course> coursesToSelect;
+	private Scanner scanner;
+	public Student student;
 	
 	public SetTest(){
 		this.coursesToSelect = new ArrayList<Course>();
@@ -47,6 +49,33 @@ public class SetTest {
 //		System.out.println("添加了课程："+temp5.id+"："+temp5.name+"、"+temp6.id+"："+temp6.name);
 		
 	}	
+	/**
+	 * 
+	 */
+	public void studentCratedAdd(){
+//		创建一个学生对象
+		student = new Student("1", "小明");
+		System.out.println("欢迎学生："+student.name+"来选课！");
+//		获取键盘输入
+		scanner = new Scanner(System.in);
+		
+		for(int i=0;i<3;i++){
+			System.out.println("请输入课程ID：");
+			String courseId = scanner.next();
+			for(Course cr:coursesToSelect){
+				if(cr.id.equals(courseId)){
+					student.course.add(cr);
+					/**
+					 * 在Set中，添加某个对像，无论添加多少次，最终只会保留一个该对象（的引用），
+					 * 并且保留的是第一次添加的那个
+					 * 且还可以添加为空值
+					 */
+//					student.course.add(null);
+//					student.course.add(cr);
+				}
+			}
+		}
+	}
 	
 	/**
 	 * 通过for each方法获取
@@ -60,35 +89,30 @@ public class SetTest {
 		}
 	}
 	
+	/**
+	 * 通过contains方法
+	 * @param args
+	 */
+	public void testSetContains(){
+		System.out.println("请输入课程名称：");
+		scanner = new Scanner(System.in);
+		String name = scanner.next();
+		Course course2 = new Course();
+		course2.name= name;
+		System.out.println("新创建课程："+course2.name);
+		System.out.println("备选课程中是否包含课程："+course2.name+","+student.course.contains(course2));
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		SetTest st = new SetTest();
 		st.TestAdd();
 		st.testForEach();
-//		创建一个学生对象
-		Student student = new Student("1", "小明");
-		System.out.println("欢迎学生："+student.name+"来选课！");
-//		获取键盘输入
-		Scanner scanner = new Scanner(System.in);
+		st.studentCratedAdd();
+		st.testSetContains();
+
 		
-		for(int i=0;i<3;i++){
-			System.out.println("请输入课程ID：");
-			String courseId = scanner.next();
-			for(Course cr:st.coursesToSelect){
-				if(cr.id.equals(courseId)){
-					student.course.add(cr);
-					/**
-					 * 在Set中，添加某个对像，无论添加多少次，最终只会保留一个该对象（的引用），
-					 * 并且保留的是第一次添加的那个
-					 * 且还可以添加为空值
-					 */
-					student.course.add(null);
-//					student.course.add(cr);
-				}
-			}
-		}
-		
-		st.testForEachForSet(student);
+//		st.testForEachForSet(student);
 	}
 	
 	public void testForEachForSet(Student student){
