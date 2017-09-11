@@ -1,4 +1,4 @@
-package Cellection;
+package Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -131,6 +131,30 @@ public class MapTest {
 		}
 	}
 	
+	/**
+	 * 测试Map中通过contains方法的key和value，查询
+	 * @param args
+	 */
+	public void testContainsKeyOrValue(){
+		System.out.println("请输入要查询的学生ID：");
+		Scanner scanner = new Scanner(System.in);
+		String id = scanner.next();
+		//通过学生ID来的constainsKey方法判断
+		if(students.containsKey(id))
+		System.out.println("输入的学生ID："+id+"，在学生映射表中是否存在："+students.containsKey(id));
+		System.out.println("对应学生为："+students.get(id).name);
+		//通过学生name的constainsValue方法判断
+		System.out.println("请输入要查询的学生name：");
+		String name = scanner.next();
+		if(students.containsValue(new Student(null, name))){
+			System.out.println("输入的学生name："+name+"，在学生映射表中是否存在："+
+					students.containsValue(new Student(null, name)));
+		}else {
+			System.out.println("输入不存在");
+		}
+		
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		MapTest mt = new MapTest();
@@ -138,8 +162,9 @@ public class MapTest {
 		mt.testKeySet();
 //		mt.testRemove();
 //		mt.testEntrySet();
-		mt.testModify();
-		mt.testEntrySet();
+//		mt.testModify();
+//		mt.testEntrySet();
+		mt.testContainsKeyOrValue();
 	}
 
 }

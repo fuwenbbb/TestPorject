@@ -1,4 +1,4 @@
-package Cellection;
+package Collection;
 /** 
 * @author £ºfuwenbin   
 * @Email: 185723075@qq.com	

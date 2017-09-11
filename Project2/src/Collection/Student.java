@@ -1,23 +1,22 @@
-package Cellection;
+package Collection;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * 课程类
+ * 学生类
  * @author fwb
  *
  */
-
-public class Course {
+public class Student {
 	public String id;
 	public String name;
-	public Course(String id,String name){
+	public Set<Course> course;
+	public Student(String id,String name){
 		this.id=id;
 		this.name=name;
+		this.course = new HashSet<Course>();
 	}
-	
-	public Course(){
-		
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -25,16 +24,15 @@ public class Course {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Course))
+		if (!(obj instanceof Student))
 			return false;
-		Course other = (Course) obj;
+		Student other = (Student) obj;
 		if (name == null) {
 			if (other.name != null)
 				return false;
