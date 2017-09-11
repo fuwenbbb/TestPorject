@@ -69,7 +69,20 @@ public class CollectionsTest {
 	 * @param args
 	 */
 	public void testSort3() {
-		
+		List<Student> studentList = new ArrayList<Student>();
+		studentList.add(new Student(1+"","小明"));
+		studentList.add(new Student(2+"","小红"));
+		studentList.add(new Student(3+"","小蓝"));
+		System.out.println("-------排序前-------");
+		for (Student Student : studentList) {
+			System.out.println("元素："+Student);
+		}
+		//有问题，student无比较规则
+//		Collections.sort(studentList);
+		System.out.println("-------排序后-------");
+		for (Student Student : studentList) {
+			System.out.println("元素："+Student);
+		}
 	}
 	
 	/**
