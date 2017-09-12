@@ -70,18 +70,24 @@ public class CollectionsTest {
 	 */
 	public void testSort3() {
 		List<Student> studentList = new ArrayList<Student>();
-		studentList.add(new Student(1+"","小明"));
-		studentList.add(new Student(2+"","小红"));
-		studentList.add(new Student(3+"","小蓝"));
+		Random random = new Random();
+		studentList.add(new Student(random.nextInt(1000)+"","Mike"));
+		studentList.add(new Student(random.nextInt(1000)+"","Lucy"));
+		studentList.add(new Student(random.nextInt(1000)+"","Bear"));
 		System.out.println("-------排序前-------");
 		for (Student Student : studentList) {
-			System.out.println("元素："+Student);
+			System.out.println("元素："+Student.id+"."+Student.name);
 		}
-		//有问题，student无比较规则
-//		Collections.sort(studentList);
+		Collections.sort(studentList);
 		System.out.println("-------排序后-------");
 		for (Student Student : studentList) {
-			System.out.println("元素："+Student);
+			System.out.println("元素："+Student.id+"."+Student.name);
+		}
+		//Comparator接口的临时比较
+		Collections.sort(studentList, new StudentComparator());
+		System.out.println("-------按照姓名排序后-------");
+		for (Student Student : studentList) {
+			System.out.println("元素："+Student.id+"."+Student.name);
 		}
 	}
 	
@@ -130,7 +136,8 @@ public class CollectionsTest {
 		CollectionsTest ct = new CollectionsTest();
 //		ct.testSort1();
 //		ct.testSort2();
-		ct.testSort4();
+//		ct.testSort4();
+		ct.testSort3();
 	}
 
 }

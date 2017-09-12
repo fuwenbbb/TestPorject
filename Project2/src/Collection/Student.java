@@ -8,7 +8,7 @@ import java.util.Set;
  * @author fwb
  *
  */
-public class Student {
+public class Student implements Comparable<Student> {
 	public String id;
 	public String name;
 	public Set<Course> course;
@@ -39,5 +39,10 @@ public class Student {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+	@Override
+	public int compareTo(Student o) {
+		// TODO Auto-generated method stub
+		return this.id.compareTo(o.id);
 	}
 }
