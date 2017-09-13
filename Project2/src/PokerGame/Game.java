@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -18,7 +19,6 @@ public class Game {
 	 * 用来承装选手类型对象
 	 */
 	public Map<String, PokerPlayer> pokerPlayer;
-	public List<Poker> pokersList;
 	public List<Poker> pokerToSelect;
 	public PokerPlayer pokerPlayer2;
 	public Scanner scanner;
@@ -30,7 +30,6 @@ public class Game {
 	public Game(){
 		this.pokerPlayer = new HashMap<String,PokerPlayer>();
 		this.pokerToSelect = new ArrayList<Poker>();
-		this.pokersList = new ArrayList<>();
 	}
 	
 	/**
@@ -42,7 +41,7 @@ public class Game {
 		String Pokernum [] = {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
 		for(int i = 0;i < Pokertype.length;i++){
 			for(int j = 0;j <Pokernum.length;j++){
-				pokersList.add(new Poker(Pokertype[i], Pokernum[j]));
+				pokerToSelect.add(new Poker(Pokertype[i], Pokernum[j]));
 			}
 		}
 //		for (Poker string : pokersList) {
@@ -103,21 +102,24 @@ public class Game {
 		for(int i=0;i<2;i++){
 			Set<String> KeySet = pokerPlayer.keySet();
 			//遍历KeySet，取得每一个键，在调用get方法取得每个键对应的value
-			for(String stuId :KeySet){
-				PokerPlayer player = pokerPlayer.get(stuId);
+			for(String playerId :KeySet){
+				PokerPlayer player = pokerPlayer.get(playerId);
+				Random random = new Random();
+				Poker pokerID  = (Poker) pokerToSelect.get(random.nextInt(pokerToSelect.size()));
 				if(player!=null){
 					for (Poker p : pokerToSelect) {
-						if(pokersList.contains(p)){
+						if(p.id.equals(pokerID.id)){
 							player.poker.add(p);
-//							Poker 
-//							System.out.println();
 						}
 					}
-					System.out.println("---玩家："+player.name+"-拿牌");
+				}
+				System.out.println("---玩家："+player.name+"-拿牌");
+				for (Poker string : player.poker) {
+					 System.out.println(string.name+"."+string.id);
 				}
 			}
 		}
-
+		
 		
 		System.out.println("--------发牌结束！--------");
 	}
