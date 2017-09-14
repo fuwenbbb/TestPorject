@@ -23,7 +23,7 @@ public class Game {
 //	public PokerPlayer pokerPlayer2;
 	public Scanner scanner;
 	public final String Pokertype [] ={"黑桃","红桃","梅花","方块"};
-	public final String Pokernum [] = {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
+	public final String Pokernum [] = {"3","4","5","6","7","8","9","10","J","Q","K","A","2"};
 	
 	/**
 	 * 在构造器中初始化pokerPlayer属性
