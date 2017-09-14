@@ -20,8 +20,10 @@ public class Game {
 	 */
 	public Map<String, PokerPlayer> pokerPlayer;
 	public List<Poker> pokerToSelect;
-	public PokerPlayer pokerPlayer2;
+//	public PokerPlayer pokerPlayer2;
 	public Scanner scanner;
+	public final String Pokertype [] ={"黑桃","红桃","梅花","方块"};
+	public final String Pokernum [] = {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
 	
 	/**
 	 * 在构造器中初始化pokerPlayer属性
@@ -36,9 +38,6 @@ public class Game {
 	 * 创建扑克牌
 	 */
 	public void createdPoker(){
-		
-		String Pokertype [] ={"黑桃","红桃","梅花","方块"};
-		String Pokernum [] = {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
 		for(int i = 0;i < Pokertype.length;i++){
 			for(int j = 0;j <Pokernum.length;j++){
 				pokerToSelect.add(new Poker(Pokertype[i], Pokernum[j]));
@@ -99,16 +98,17 @@ public class Game {
 	 */
 	public void dealPoker(){
 		System.out.println("--------开始发牌...--------");
+		PokerPlayer player;
 		for(int i=0;i<2;i++){
 			Set<String> KeySet = pokerPlayer.keySet();
 			//遍历KeySet，取得每一个键，在调用get方法取得每个键对应的value
 			for(String playerId :KeySet){
-				PokerPlayer player = pokerPlayer.get(playerId);
+				player = pokerPlayer.get(playerId);
 				Random random = new Random();
 				Poker pokerID  = (Poker) pokerToSelect.get(random.nextInt(pokerToSelect.size()));
 				if(player!=null){
 					for (Poker p : pokerToSelect) {
-						if(p.id.equals(pokerID.id)){
+						if(p.id.equals(pokerID.id)&&p.name.equals(pokerID.name)){
 							player.poker.add(p);
 						}
 					}
@@ -119,16 +119,40 @@ public class Game {
 				}
 			}
 		}
-		
-		
 		System.out.println("--------发牌结束！--------");
 	}
+	
+	/**
+	 * 开始游戏
+	 * @param args
+	 */
+	public void startGame(){
+		System.out.println("--------开始游戏！--------");
+		PokerPlayer player;
+		Set<String> KeySet = pokerPlayer.keySet();
+		//遍历KeySet，取得每一个键，在调用get方法取得每个键对应的value
+		for(String playerId :KeySet){
+			player = pokerPlayer.get(playerId);
+			for (Poker string : player.poker) {
+				
+				if(player!=null){
+					System.out.println(player.name+":"+string.name+"."+string.id);
+					
+				}
+				
+			}
+		}
+	}
+	
+	
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Game game = new Game();
 		game.createdPoker();
 		game.createdPokerPlayer();
 		game.dealPoker();
+		game.startGame();
 	}
 
 }
