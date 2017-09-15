@@ -1,6 +1,8 @@
 package PokerGame;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /** 
@@ -14,36 +16,37 @@ public class PokerPlayer {
 	//¶¨ÒåÍæ¼Ò
 	public String name;
 	public String id;
-	public Set<Poker> poker;
+//	public Set<Poker> poker;
+	List<Poker> pokerPlayerList = new ArrayList<Poker>();
 	public PokerPlayer(String id,String name){
 		this.id=id;
 		this.name=name;
-		this.poker= new HashSet<Poker>();
+//		this.poker= new HashSet<Poker>();
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((poker == null) ? 0 : poker.hashCode());
-		return result;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof PokerPlayer))
-			return false;
-		PokerPlayer other = (PokerPlayer) obj;
-		if (poker == null) {
-			if (other.poker != null)
-				return false;
-		} else if (!poker.equals(other.poker))
-			return false;
-		return true;
-	}
+//	@Override
+//	public int hashCode() {
+//		final int prime = 31;
+//		int result = 1;
+//		result = prime * result + ((poker == null) ? 0 : poker.hashCode());
+//		return result;
+//	}
+//	
+//	@Override
+//	public boolean equals(Object obj) {
+//		if (this == obj)
+//			return true;
+//		if (obj == null)
+//			return false;
+//		if (!(obj instanceof PokerPlayer))
+//			return false;
+//		PokerPlayer other = (PokerPlayer) obj;
+//		if (poker == null) {
+//			if (other.poker != null)
+//				return false;
+//		} else if (!poker.equals(other.poker))
+//			return false;
+//		return true;
+//	}
 	
 }

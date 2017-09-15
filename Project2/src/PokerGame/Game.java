@@ -1,12 +1,17 @@
 package PokerGame;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
+
+import Collection.Student;
 
 /** 
 * @author ：fuwenbin   
@@ -47,7 +52,7 @@ public class Game {
 //			System.out.println(string.name+string.id);
 //		}
 		System.out.println("--------创建扑克牌成功！----------");
-		System.out.println("--------洗扑克牌成功！----------");
+//		System.out.println("--------洗扑克牌成功！----------");
 	}
 	
 	/**
@@ -92,35 +97,79 @@ public class Game {
 		}
 	}
 	
+//	/**
+//	 * 洗牌和发牌--老版
+//	 * @param args
+//	 */
+//	public void dealPoker(){
+//		System.out.println("--------开始发牌...--------");
+//		PokerPlayer player;
+//		for(int i=0;i<2;i++){
+//			Set<String> KeySet = pokerPlayer.keySet();
+//			//遍历KeySet，取得每一个键，在调用get方法取得每个键对应的value
+//			for(String playerId :KeySet){
+//				player = pokerPlayer.get(playerId);
+//				Random random = new Random();
+//				Poker pokerID  = (Poker) pokerToSelect.get(random.nextInt(pokerToSelect.size()));
+//				if(player!=null){
+//					for (Poker p : pokerToSelect) {
+//						if(p.id.equals(pokerID.id)&&p.name.equals(pokerID.name)){
+//							player.poker.add(p);
+//						}
+//					}
+//				}
+//				System.out.println("---玩家："+player.name+"-拿牌");
+//				for (Poker string : player.poker) {
+//					 System.out.println(string.name+"."+string.id);
+//				}
+//			}
+//		}
+//		System.out.println("--------发牌结束！--------");
+//	}
+	
+	
 	/**
-	 * 发牌
+	 * 洗牌
 	 * @param args
 	 */
-	public void dealPoker(){
+	public void shuffedPoker(){
+		Collections.shuffle(pokerToSelect);
+		System.out.println("--------洗扑克牌成功！----------");
+	}
+	
+	/**
+	 * 发牌
+	 */
+	public void sendPoker(){
 		System.out.println("--------开始发牌...--------");
-		PokerPlayer player;
-		for(int i=0;i<2;i++){
-			Set<String> KeySet = pokerPlayer.keySet();
-			//遍历KeySet，取得每一个键，在调用get方法取得每个键对应的value
-			for(String playerId :KeySet){
-				player = pokerPlayer.get(playerId);
-				Random random = new Random();
-				Poker pokerID  = (Poker) pokerToSelect.get(random.nextInt(pokerToSelect.size()));
-				if(player!=null){
-					for (Poker p : pokerToSelect) {
-						if(p.id.equals(pokerID.id)&&p.name.equals(pokerID.name)){
-							player.poker.add(p);
-						}
-					}
-				}
-				System.out.println("---玩家："+player.name+"-拿牌");
-				for (Poker string : player.poker) {
-					 System.out.println(string.name+"."+string.id);
-				}
-			}
-		}
+		//玩家一号拿牌
+		System.out.println("---玩家："+pokerPlayer.get("1").name+"-拿牌");
+		pokerPlayer.get("1").pokerPlayerList.add(pokerToSelect.get(0));
+		System.out.println("---玩家："+pokerPlayer.get("2").name+"-拿牌");
+		pokerPlayer.get("2").pokerPlayerList.add(pokerToSelect.get(1));
+		//玩家二号拿牌
+		System.out.println("---玩家："+pokerPlayer.get("1").name+"-拿牌");
+		pokerPlayer.get("1").pokerPlayerList.add(pokerToSelect.get(2));
+		System.out.println("---玩家："+pokerPlayer.get("2").name+"-拿牌");
+		pokerPlayer.get("2").pokerPlayerList.add(pokerToSelect.get(3));
+//		Set<String> KeySet = pokerPlayer.keySet();
+		//遍历KeySet，取得每一个键，在调用get方法取得每个键对应的value
+//		for(String pokerPlayerId :KeySet){
+//			PokerPlayer st = pokerPlayer.get(pokerPlayerId);
+//			if(st!=null){
+//				
+//				System.out.println("---玩家："+pokerPlayer.get(pokerPlayerId).name+"-拿牌");
+//				pokerPlayer.get(pokerPlayerId).pokerPlayerList.add(pokerToSelect.get(0));
+//				System.out.println("---玩家："+pokerPlayer.get(pokerPlayerId).name+"-拿牌");
+//				pokerPlayer.get(pokerPlayerId).pokerPlayerList.add(pokerToSelect.get(1));
+//			}
+//		}
+//		
+		
+		
 		System.out.println("--------发牌结束！--------");
 	}
+
 	
 	/**
 	 * 开始游戏
@@ -128,31 +177,80 @@ public class Game {
 	 */
 	public void startGame(){
 		System.out.println("--------开始游戏！--------");
-		PokerPlayer player;
-		Set<String> KeySet = pokerPlayer.keySet();
-		//遍历KeySet，取得每一个键，在调用get方法取得每个键对应的value
-		for(String playerId :KeySet){
-			player = pokerPlayer.get(playerId);
-			for (Poker string : player.poker) {
-				
-				if(player!=null){
-					System.out.println(player.name+":"+string.name+"."+string.id);
-					
+		PokerComparator pokerComparator = new PokerComparator();
+		List<Poker> p1 = new ArrayList<Poker>();
+		List<Poker> p2 = new ArrayList<Poker>();
+		//玩家一的第一张牌
+		p1.add(0, pokerPlayer.get("1").pokerPlayerList.get(0));
+		//玩家一的第二张牌
+		p1.add(1, pokerPlayer.get("1").pokerPlayerList.get(1));
+		//玩家二的第一张牌
+		p2.add(0, pokerPlayer.get("2").pokerPlayerList.get(0));
+		//玩家二的第二张牌
+		p2.add(1, pokerPlayer.get("2").pokerPlayerList.get(1));
+		//比较玩家各自的手牌大小
+		int a = pokerComparator.compare(p1.get(0), p1.get(1));
+		int b = pokerComparator.compare(p2.get(0), p2.get(1));
+		if(a>0){
+			if(b>0){
+				int c =pokerComparator.compare(p1.get(1), p2.get(1));
+				if(c>0){
+					System.out.println("--------获胜方："+pokerPlayer.get("2").name);
+				}else{
+					System.out.println("--------获胜方："+pokerPlayer.get("1").name);
 				}
-				
+			}else{
+				int c =pokerComparator.compare(p1.get(1), p2.get(0));
+				if(c>0){
+					System.out.println("--------获胜方："+pokerPlayer.get("2").name);
+				}else{
+					System.out.println("--------获胜方："+pokerPlayer.get("1").name);
+				}
+			}
+		}else {
+			if(b>0){
+				int c =pokerComparator.compare(p1.get(0), p2.get(1));
+				if(c>0){
+					System.out.println("--------获胜方："+pokerPlayer.get("2").name);
+				}else{
+					System.out.println("--------获胜方："+pokerPlayer.get("1").name);
+				}
+			}else{
+				int c =pokerComparator.compare(p1.get(0), p2.get(0));
+				if(c>0){
+					System.out.println("--------获胜方："+pokerPlayer.get("2").name);
+				}else{
+					System.out.println("--------获胜方："+pokerPlayer.get("1").name);
+				}
+			}
+		}
+		
+	}
+	
+	/**
+	 * 展示玩家手牌
+	 * @param args
+	 */
+	public void showPlayerPoker(){
+//		Set<String> KeySet = pokerPlayer.keySet();
+		for (String pl  : pokerPlayer.keySet()) {
+			 System.out.println("---玩家："+pokerPlayer.get(pl).name+"-拿牌:");
+			 for (Poker poker :pokerPlayer.get(pl).pokerPlayerList ) {
+				 System.out.println(poker.name+"."+poker.id);
 			}
 		}
 	}
-	
-	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Game game = new Game();
 		game.createdPoker();
 		game.createdPokerPlayer();
-		game.dealPoker();
+//		game.dealPoker();
+		game.shuffedPoker();
+		game.sendPoker();
 		game.startGame();
+		game.showPlayerPoker();
 	}
 
 }
